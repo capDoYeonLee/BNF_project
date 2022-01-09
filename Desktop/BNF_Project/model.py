@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.layers import Input, Conv2D, Dense, Flatten, Dropout
-from tensorflow.keras.layers import GlobalMaxPooling2D, MaxPooling2D
+from tensorflow.keras.layers import GlobalMaxPooling2D, MaxPooling2D, ReLU
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.models import Model
 from utils import get_folded_weights_1st, get_folded_weights_2nd, get_folded_weights_3rd
@@ -29,16 +29,22 @@ def Batch_Normalization_Folding_Model(x_train, y_train):
     # Batch Normalization Folding Model
     K = len(set(y_train))
     i = Input(shape=x_train[0].shape)
-    x = Conv2D(32, (3, 3), activation='relu', padding='same', weights=[w_1,b_1],)(i)
-    x = Conv2D(32, (3, 3), activation='relu', padding='same', weights=[w_2, b_2])(x)
+    x = Conv2D(32, (3, 3), padding='same', weights=[w_1,b_1],)(i)
+    x = ReLU(x)
+    x = Conv2D(32, (3, 3), padding='same', weights=[w_2, b_2])(x)
+    x = ReLU(x)
     x = MaxPooling2D((2, 2))(x)
 
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', weights=[w_3,b_3])(x)
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', weights=[w_4,b_4])(x)
+    x = Conv2D(64, (3, 3), padding='same', weights=[w_3,b_3])(x)
+    x = ReLU(x)
+    x = Conv2D(64, (3, 3), padding='same', weights=[w_4,b_4])(x)
+    x = ReLU(x)
     x = MaxPooling2D((2, 2))(x)
 
-    x = Conv2D(128, (3, 3), activation='relu', padding='same', weights=[w_5,b_5])(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same', weights=[w_6,b_6])(x)
+    x = Conv2D(128, (3, 3), padding='same', weights=[w_5,b_5])(x)
+    x = ReLU(x)
+    x = Conv2D(128, (3, 3), padding='same', weights=[w_6,b_6])(x)
+    x = ReLU(x)
     x = MaxPooling2D((2, 2))(x)
 
     x = Flatten()(x)
