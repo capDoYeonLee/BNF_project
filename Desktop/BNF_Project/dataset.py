@@ -11,8 +11,8 @@ import ssl
 
 
 def data_loader():
-    
-  ssl._create_default_https_context = ssl._create_unverified_context
+  
+  ssl._create_default_https_context = ssl._create_unverified_context    # data 불러오는 과정에서 오류남 그걸 해결하는 코드
 
   cifar10 = tf.keras.datasets.cifar10
  
