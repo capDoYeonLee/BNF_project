@@ -1,4 +1,4 @@
-this model is simple.
+his model is simple.
 original model consists of Conv, BN, pooling and dense layer.
 but my model consists of Conv and pooling, dense layer.
  [ I think how to fold(fusing, merge) conv layer and BN layer? ] 
